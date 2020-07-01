@@ -9,13 +9,21 @@ class AdminPagesController extends Controller
 {
     public function index(  $id ) {
         $page = Page::find($id);
-
-        return view('admin.page', compact('page'));
+        $blocks = [
+            'id' => '',
+            'name' => '',
+            'code' => '',
+        ];
+        return view('admin.page', compact('page', 'blocks'));
     }
 
     public function save(Request $request, $id) {
-        var_dump($request);
+        $page = Page::find($id);
+        $page->name = $request->input('name');
+        $page->code = $request->input('code');
+        $page->content = $request->input('block-list');
+        $page->save();
 
-        return $back()->withInput();
+        return redirect()->back()->with('status', 'ok');
     }
 }

@@ -2,7 +2,6 @@
 
 @section('head')
     <script>
-        {{--var $blocks = @json($blocks, JSON_PRETTY_PRINT);--}}
     </script>
 @endsection
 
@@ -12,26 +11,34 @@
             <h1>
                 Edit page {{ $page->name }}
             </h1>
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
             <div class="">
-                <form class="form" method="post" action="/pages/{{  $page->id }}/save">
-                    @method('PUT')
+                <div id="editor">
                     @csrf
                     <div class="form-group">
                         <label for="" class="form-input">
                             Name:
                         </label>
-                        <input type="text" class="form-control" value="{{ $page->name}}">
+                        <input type="text" name="name" class="form-control" value="{{ $page->name}}">
                     </div>
                     <div class="form-group">
                         <label for="" class="form-input">
                             Code:
                         </label>
-                        <input type="text" class="form-control" value="{{ $page->code}}" disabled>
+                        <input type="text" name="code" class="form-control" value="{{ $page->code}}" disabled>
+                    </div>
+                    <div class="mt-2">
+                        <block-list :blocks="{{  $blocks}}  "></block-list>
                     </div>
                     <div class="button-group">
                         <button type="submit" class="btn btn-primary">Save</button>
+                        <a href="/admin" class="btn btn-primary">Back</a>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
