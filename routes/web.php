@@ -13,16 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get( '/{locale}', function ( $locale ) {
-    if ( ! in_array( $locale, [ 'pl', 'en' ] ) ) {
-        abort(400);
-    }
+Route::get('/login', function() {
 
-    App::setLocale($locale);
+    return view('home');
+});
+
+Route::get( '/', function (  ) {
 
     return view( 'welcome' );
 } );
 
-Auth::routes();
+Route::get( '/home', 'HomeController@index' )->name( 'home' );
+Route::get( '/admin', 'AdminController@index' )->name( 'admin' );
+Route::get( '/admin/pages/{id}', 'AdminPagesController@index' )->name( 'admin.page' );
+Route::post( '/admin/pages/{id}', 'AdminPagesController@save' )->name( 'admin.page.save' );
 
-Route::get('/home', 'HomeController@index')->name('home');
+Auth::routes();

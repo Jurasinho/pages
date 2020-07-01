@@ -9,6 +9,8 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    @yield('head')
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
@@ -34,6 +36,9 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
 
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin') }}">{{ __('Admin') }}</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -66,6 +71,7 @@
                                     </form>
                                 </div>
                             </li>
+
                         @endguest
                     </ul>
                 </div>
